@@ -1,9 +1,9 @@
+package server;
+
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ChatHandler extends Thread {
     private final Socket socket;
@@ -50,7 +50,7 @@ public class ChatHandler extends Thread {
                 try {
                     // todo DZ отдельный метод
                     synchronized (chatHandler.dataOutputStream) {
-                        chatHandler.dataOutputStream.writeUTF(message);
+                        chatHandler.dataOutputStream.writeUTF(getTime() + ": " + message);
                     }
                     chatHandler.dataOutputStream.flush();
                 } catch (IOException e) {
@@ -58,5 +58,12 @@ public class ChatHandler extends Thread {
                 }
             }
         }
+    }
+
+    private String getTime() {
+        Calendar calendar= Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        return dateFormat.format(date);
     }
 }

@@ -1,3 +1,5 @@
+package client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
-public class ChatClient extends JFrame implements Runnable {
+public class ChatWin extends JFrame implements Runnable {
 
     private final Socket socket;
     private final DataInputStream dataInputStream;
@@ -15,7 +17,7 @@ public class ChatClient extends JFrame implements Runnable {
     private final JTextArea outTextArea;
     private final JTextField inTextField;
 
-    public ChatClient(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream) {
+    public ChatWin(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream) {
         super("Client");
         this.socket = socket;
         this.dataInputStream = dataInputStream;
@@ -65,19 +67,21 @@ public class ChatClient extends JFrame implements Runnable {
     }
 
 
-    public static void main(String[] args) {
+    public static void oldmain(String[] args) {
         String site = "localhost";
         String port = "8082";
 
         Socket socket = null;
         DataInputStream dataInputStream = null;
         DataOutputStream dataOutputStream = null;
-//        new ChatClient(null, null, null);
+//        new client.ChatWin(null, null, null);
+//        StartWin startWin = new StartWin();
+//        startWin.init();
         try {
             socket = new Socket(site, Integer.parseInt(port));
             dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            new ChatClient(socket, dataInputStream, dataOutputStream);
+            new ChatWin(socket, dataInputStream, dataOutputStream);
         } catch (IOException e) {
             e.printStackTrace();
             try {
