@@ -13,20 +13,22 @@ public class ChatMain {
 
     public static void main(String[] args) {
         ChatMain chatController = new ChatMain();
-        StartWin startWin = new StartWin();
-        startWin.init(chatController);
+        StartDialog startDialog = new StartDialog();
+        startDialog.init(chatController);
     }
 
     void startConnection(String ipAddressServer, String nickname){
         this.ipAddressServer = ipAddressServer;
-        ChatWin chatWin;
+        ChatWindow chatWindow;
         try {
             socket = new Socket(this.ipAddressServer, Integer.parseInt(port));
             dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             dataOutputStream.writeUTF(nickname);
-            chatWin = new ChatWin(socket, dataInputStream, dataOutputStream, nickname);
+            chatWindow = new ChatWindow(socket, dataInputStream, dataOutputStream, nickname);
         } catch (IOException e) {
+            System.out.println("Не удалось подключиться");
+            //todo здесь надо окно с ошибкой
             e.printStackTrace();
             try {
                 if (dataOutputStream != null) {

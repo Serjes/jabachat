@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
-public class ChatWin extends JFrame implements Runnable {
+public class ChatWindow extends JFrame implements Runnable {
 
     private final Socket socket;
     private final DataInputStream dataInputStream;
@@ -17,7 +17,7 @@ public class ChatWin extends JFrame implements Runnable {
     private final JTextArea outTextArea;
     private final JTextField inTextField;
 
-    public ChatWin(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream, String nickname) {
+    public ChatWindow(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream, String nickname) {
         //super("Client");
         super(nickname);
         this.socket = socket;
@@ -31,6 +31,7 @@ public class ChatWin extends JFrame implements Runnable {
         add(outTextArea);
         inTextField = new JTextField();
         add(BorderLayout.SOUTH, inTextField);
+        //todo scrolling required
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -75,14 +76,14 @@ public class ChatWin extends JFrame implements Runnable {
 //        Socket socket = null;
 //        DataInputStream dataInputStream = null;
 //        DataOutputStream dataOutputStream = null;
-////        new client.ChatWin(null, null, null);
-////        StartWin startWin = new StartWin();
+////        new client.ChatWindow(null, null, null);
+////        StartDialog startWin = new StartDialog();
 ////        startWin.init();
 //        try {
 //            socket = new Socket(site, Integer.parseInt(port));
 //            dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 //            dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-//            new ChatWin(socket, dataInputStream, dataOutputStream);
+//            new ChatWindow(socket, dataInputStream, dataOutputStream);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //            try {

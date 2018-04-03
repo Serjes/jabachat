@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 
-public class StartWin extends JFrame {
+public class StartDialog extends JFrame {
 
     public void init(ChatMain chatController) {
         setSize(250, 300);
@@ -28,22 +29,15 @@ public class StartWin extends JFrame {
         panel.add(ipAddressField);
         panel.add(nicknameLabel);
         panel.add(nicknameField);
-        //panel.add(button);
-//        add(ipAddressLabel);
-//        add(ipAddressField);
-//        add(nicknameLabel);
-//        add(nicknameField);
-//        add(button);
         add(panel, BorderLayout.NORTH);
         add(chatLabel, BorderLayout.CENTER);
         add(button, BorderLayout.SOUTH);
-        final StartWin startWin = this;
+        final StartDialog startDialog = this;
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chatController.startConnection(ipAddressField.getText(),nicknameField.getText());
-                startWin.dispose();
-
+                chatController.startConnection(ipAddressField.getText(), nicknameField.getText());
+                startDialog.dispose();
             }
         });
 
