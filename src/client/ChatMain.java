@@ -17,14 +17,15 @@ public class ChatMain {
         startWin.init(chatController);
     }
 
-    void startConnection(String ipAddressServer){
+    void startConnection(String ipAddressServer, String nickname){
         this.ipAddressServer = ipAddressServer;
         ChatWin chatWin;
         try {
             socket = new Socket(this.ipAddressServer, Integer.parseInt(port));
             dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            chatWin = new ChatWin(socket, dataInputStream, dataOutputStream);
+            dataOutputStream.writeUTF(nickname);
+            chatWin = new ChatWin(socket, dataInputStream, dataOutputStream, nickname);
         } catch (IOException e) {
             e.printStackTrace();
             try {

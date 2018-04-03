@@ -17,8 +17,9 @@ public class ChatWin extends JFrame implements Runnable {
     private final JTextArea outTextArea;
     private final JTextField inTextField;
 
-    public ChatWin(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream) {
-        super("Client");
+    public ChatWin(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream, String nickname) {
+        //super("Client");
+        super(nickname);
         this.socket = socket;
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
@@ -67,39 +68,39 @@ public class ChatWin extends JFrame implements Runnable {
     }
 
 
-    public static void oldmain(String[] args) {
-        String site = "localhost";
-        String port = "8082";
-
-        Socket socket = null;
-        DataInputStream dataInputStream = null;
-        DataOutputStream dataOutputStream = null;
-//        new client.ChatWin(null, null, null);
-//        StartWin startWin = new StartWin();
-//        startWin.init();
-        try {
-            socket = new Socket(site, Integer.parseInt(port));
-            dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            new ChatWin(socket, dataInputStream, dataOutputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-            try {
-                if (dataOutputStream != null) {
-                    dataOutputStream.close();
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            try {
-                if (socket != null) {
-                    socket.close();
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
+//    public static void oldmain(String[] args) {
+//        String site = "localhost";
+//        String port = "8082";
+//
+//        Socket socket = null;
+//        DataInputStream dataInputStream = null;
+//        DataOutputStream dataOutputStream = null;
+////        new client.ChatWin(null, null, null);
+////        StartWin startWin = new StartWin();
+////        startWin.init();
+//        try {
+//            socket = new Socket(site, Integer.parseInt(port));
+//            dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+//            dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+//            new ChatWin(socket, dataInputStream, dataOutputStream);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            try {
+//                if (dataOutputStream != null) {
+//                    dataOutputStream.close();
+//                }
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//            try {
+//                if (socket != null) {
+//                    socket.close();
+//                }
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public void run() {

@@ -41,7 +41,7 @@ public class StartWin extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chatController.startConnection(ipAddressField.getText());
+                chatController.startConnection(ipAddressField.getText(),nicknameField.getText());
                 startWin.dispose();
 
             }
