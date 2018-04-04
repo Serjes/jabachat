@@ -20,7 +20,7 @@ public class ChatWindow extends JFrame implements Runnable {
 
     public ChatWindow(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream, String nickname) {
         //super("Client");
-        super("jabachat: "+ nickname);
+        super("jabachat: " + nickname);
         this.socket = socket;
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
@@ -29,11 +29,12 @@ public class ChatWindow extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         outTextArea = new JTextArea();
+        //outTextArea.
 
         inTextField = new JTextField();
         JScrollPane scrollPane = new JScrollPane(outTextArea);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        DefaultCaret caret = (DefaultCaret)outTextArea.getCaret();
+        DefaultCaret caret = (DefaultCaret) outTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JPanel jPanel = new JPanel();
@@ -103,6 +104,8 @@ public class ChatWindow extends JFrame implements Runnable {
         try {
             while (true) { // todo flag
                 String line = dataInputStream.readUTF();
+//                char[] chars = new char[10];
+//                line.getChars(0,1,chars,0);
                 outTextArea.append(line + "\n");
             }
         } catch (IOException e) {

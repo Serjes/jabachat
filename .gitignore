@@ -7,3 +7,7 @@
 # Java compiled #
 #################
 *.class
+
+out/
+server_jar/
+client_jar/
