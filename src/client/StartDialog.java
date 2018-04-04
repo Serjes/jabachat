@@ -15,7 +15,7 @@ public class StartDialog extends JFrame {
         setLocationRelativeTo(null);
         JLabel ipAddressLabel = new JLabel("IP-адрес сервера:");
         JLabel nicknameLabel = new JLabel("Ваше имя:");
-        JLabel chatLabel = new JLabel("Чат ждет тебя");
+        JLabel chatLabel = new JLabel("Паникующий чат ждет тебя");
         chatLabel.setHorizontalAlignment(JLabel.CENTER);
         final JTextField ipAddressField = new JTextField("localhost");
         final JTextField nicknameField = new JTextField("Anonymous");

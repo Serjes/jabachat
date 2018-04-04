@@ -71,7 +71,8 @@ public class ChatHandler extends Thread {
     private String getTime() {
         Calendar calendar= Calendar.getInstance();
         Date date = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
         return dateFormat.format(date);
     }
 }

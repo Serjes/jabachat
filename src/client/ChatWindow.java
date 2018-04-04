@@ -1,6 +1,7 @@
 package client;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ public class ChatWindow extends JFrame implements Runnable {
 
     public ChatWindow(Socket socket, DataInputStream dataInputStream, DataOutputStream dataOutputStream, String nickname) {
         //super("Client");
-        super(nickname);
+        super("jabachat: "+ nickname);
         this.socket = socket;
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
@@ -28,11 +29,27 @@ public class ChatWindow extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         outTextArea = new JTextArea();
-        add(outTextArea);
+
         inTextField = new JTextField();
+        JScrollPane scrollPane = new JScrollPane(outTextArea);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        DefaultCaret caret = (DefaultCaret)outTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+        JPanel jPanel = new JPanel();
+        jPanel.setLayout(new BorderLayout());
+        //jPanel.add(outTextArea);
+        jPanel.add(scrollPane);
+
+        add(jPanel);
+        JButton jButton = new JButton("Где шеф???");
+        jPanel.add(BorderLayout.SOUTH, jButton);
+
         add(BorderLayout.SOUTH, inTextField);
+        add(BorderLayout.CENTER, jPanel);
+
         final ChatWindow chat = this;
-        //todo scrolling required
+
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -63,46 +80,23 @@ public class ChatWindow extends JFrame implements Runnable {
                 inTextField.setText("");
             }
         });
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    chat.dataOutputStream.writeUTF("Где шеф???");
+                    chat.dataOutputStream.flush();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                inTextField.setText("");
+            }
+        });
 
         setVisible(true);
         inTextField.requestFocus();
         new Thread(this).start();
     }
-
-
-//    public static void oldmain(String[] args) {
-//        String site = "localhost";
-//        String port = "8082";
-//
-//        Socket socket = null;
-//        DataInputStream dataInputStream = null;
-//        DataOutputStream dataOutputStream = null;
-////        new client.ChatWindow(null, null, null);
-////        StartDialog startWin = new StartDialog();
-////        startWin.init();
-//        try {
-//            socket = new Socket(site, Integer.parseInt(port));
-//            dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-//            dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-//            new ChatWindow(socket, dataInputStream, dataOutputStream);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            try {
-//                if (dataOutputStream != null) {
-//                    dataOutputStream.close();
-//                }
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
-//            try {
-//                if (socket != null) {
-//                    socket.close();
-//                }
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
-//        }
-//    }
 
     @Override
     public void run() {
